@@ -1,6 +1,7 @@
 package com.ravishrajput.restapi.controller
 
 import com.ravishrajput.restapi.database.DaoRepository
+import com.ravishrajput.restapi.model.Response
 import com.ravishrajput.restapi.model.User
 import io.ktor.application.*
 import io.ktor.request.*
@@ -18,21 +19,29 @@ fun Route.routeUser(dao: DaoRepository) {
         val id = call.parameters["id"]
         id?.let {
             val user = dao.getUser(it.toInt())
-            call.respond(user ?: "Record not found!")
-        } ?: call.respond("Invalid id!")
+            call.respond(user ?: Response(404, "Record not found!"))
+        } ?: call.respond(Response(400, "Invalid id!"))
     }
 
     delete("/user/{id}") {
         val id = call.parameters["id"]
         id?.let {
             dao.deleteUser(it.toInt())
-            call.respond("User Deleted!")
-        } ?: call.respond("Invalid id!")
+            call.respond(Response(200, "Record deleted!"))
+        } ?: call.respond(Response(400, "Invalid id!"))
     }
 
     post("/user") {
-        val user = call.receive<User>()
+        val user = call.receiveParameters().run {
+            User(
+                id = null,
+                this["name"].toString(),
+                this["username"].toString(),
+                this["email"].toString(),
+                this["imageUrl"].toString()
+            )
+        }
         dao.createUser(user)
-        call.respond("User Added Successfully!")
+        call.respond(Response(200, "User Added Successfully!"))
     }
 }
