@@ -7,8 +7,7 @@ import org.jetbrains.exposed.sql.SchemaUtils
 object DatabaseFactory {
 
     suspend fun init() {
-        Database.connect("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1", driver = "org.h2.Driver")
-
+        Database.connect("jdbc:mysql://localhost:3306/ktor_test_data?user=root&password=yourdatabasepassword", driver = "com.mysql.cj.jdbc.Driver")
         dbQuery {
             SchemaUtils.create(Users)
         }
