@@ -1,0 +1,25 @@
+<web-app version="3.0"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+         http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <display-name>KtorRestServlet</display-name>
+    <description>This is a simple web application with a source code organization based on the recommendations of the
+        Application Developer's Guide.
+    </description>
+    <servlet>
+        <display-name>KtorRestServlet</display-name>
+        <servlet-name>KtorRestServlet</servlet-name>
+        <servlet-class>io.ktor.server.servlet.ServletApplicationEngine</servlet-class>
+        <init-param>
+            <param-name>io.ktor.ktor.config</param-name>
+            <param-value>application.conf</param-value>
+        </init-param>
+        <async-supported>true</async-supported>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>KtorRestServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+</web-app>
