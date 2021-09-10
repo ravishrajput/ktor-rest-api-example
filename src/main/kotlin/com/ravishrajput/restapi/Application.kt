@@ -11,7 +11,7 @@ import io.ktor.gson.*
 import io.ktor.routing.*
 import kotlinx.coroutines.launch
 
-fun main(args: Array<String>): Unit = io.ktor.server.tomcat.EngineMain.main(args)
+fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
 fun Application.module() {
 
@@ -22,7 +22,7 @@ fun Application.module() {
     install(Authentication) {
         basic(BASIC_AUTH) {
             validate { credentials ->
-                if (credentials.name == "username" && credentials.password == "password") {
+                if (credentials.name == "dummyRestApi" && credentials.password == "csb2j9Ak6XjdEP5YIe=") {
                     UserIdPrincipal(credentials.name)
                 } else {
                     null

@@ -1,0 +1,1 @@
+web: ./build/install/ktor-rest-api-example/bin/ktor-rest-api-example

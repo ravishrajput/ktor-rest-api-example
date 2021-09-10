@@ -7,12 +7,12 @@ val h2Version: String by project
 plugins {
     application
     kotlin("jvm") version "1.5.30"
-    id ("org.gretty") version "3.0.6"
-    id ("war")
+    id("org.gretty") version "3.0.6"
+    id("war")
 }
 
 group = "com.ravishrajput"
-version = "0.0.1"
+version = "1.0.0"
 
 application {
     mainClass.set("com.ravishrajput.restapi.ApplicationKt")
@@ -24,6 +24,10 @@ gretty {
     logbackConfigFile = "src/main/resources/logback.xml"
 }
 
+tasks.create("stage") {
+    dependsOn("installDist")
+}
+
 
 repositories {
     mavenCentral()
@@ -31,7 +35,7 @@ repositories {
 
 dependencies {
     implementation("io.ktor:ktor-server-core:$ktor_version")
-    implementation("io.ktor:ktor-server-tomcat:$ktor_version")
+    implementation("io.ktor:ktor-server-netty:$ktor_version")
     implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("io.ktor:ktor-gson:$ktor_version")
     implementation("io.ktor:ktor-auth:$ktor_version")
