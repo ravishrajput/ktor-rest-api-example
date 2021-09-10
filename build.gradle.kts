@@ -43,9 +43,9 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
     implementation("com.h2database:h2:$h2Version")
-    implementation("mysql:mysql-connector-java:8.0.25")
+    implementation("io.ktor:ktor-html-builder:$ktor_version")
+    implementation("io.ktor:ktor-freemarker:$ktor_version")
     implementation("io.ktor:ktor-server-servlet:$ktor_version")
-    implementation("org.mariadb.jdbc:mariadb-java-client:2.7.4")
     testImplementation("io.ktor:ktor-server-tests:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test:$kotlin_version")
 }

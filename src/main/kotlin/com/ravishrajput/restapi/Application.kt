@@ -4,9 +4,12 @@ import com.ravishrajput.restapi.database.DaoRepository
 import com.ravishrajput.restapi.database.DatabaseFactory
 import com.ravishrajput.restapi.routing.configureRouting
 import com.ravishrajput.restapi.utils.Constants.BASIC_AUTH
+import freemarker.cache.ClassTemplateLoader
+import freemarker.core.HTMLOutputFormat
 import io.ktor.application.*
 import io.ktor.auth.*
 import io.ktor.features.*
+import io.ktor.freemarker.*
 import io.ktor.gson.*
 import io.ktor.routing.*
 import kotlinx.coroutines.launch
@@ -45,5 +48,10 @@ fun Application.module() {
 
     install(Routing) {
         configureRouting(dao)
+    }
+
+    install(FreeMarker) {
+        templateLoader = ClassTemplateLoader(this::class.java.classLoader, "files")
+        outputFormat = HTMLOutputFormat.INSTANCE
     }
 }
