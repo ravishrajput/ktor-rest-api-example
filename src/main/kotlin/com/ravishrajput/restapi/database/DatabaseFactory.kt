@@ -7,7 +7,8 @@ import org.jetbrains.exposed.sql.SchemaUtils
 object DatabaseFactory {
 
     suspend fun init() {
-        Database.connect("mysql://ftbzzv0i9fnfsalq:fmhh9wvgm6d12wpq@eporqep6b4b8ql12.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/i4b1j5lsw9bt7mzr", driver = "org.mariadb.jdbc.Driver")
+        Database.connect("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1", driver = "org.h2.Driver")
+
         dbQuery {
             SchemaUtils.create(Users)
         }
