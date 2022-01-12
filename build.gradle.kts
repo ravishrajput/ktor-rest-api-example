@@ -7,7 +7,6 @@ val h2Version: String by project
 plugins {
     application
     kotlin("jvm") version "1.5.30"
-    id("org.gretty") version "3.0.6"
     id("war")
 }
 
@@ -18,16 +17,9 @@ application {
     mainClass.set("com.ravishrajput.restapi.ApplicationKt")
 }
 
-gretty {
-    servletContainer = "tomcat9"
-    contextPath = '/'
-    logbackConfigFile = "src/main/resources/logback.xml"
-}
-
 tasks.create("stage") {
     dependsOn("installDist")
 }
-
 
 repositories {
     mavenCentral()

@@ -25,7 +25,7 @@ fun Application.module() {
     install(Authentication) {
         basic(BASIC_AUTH) {
             validate { credentials ->
-                if (credentials.name == "dummyRestApi" && credentials.password == "csb2j9Ak6XjdEP5YIe=") {
+                if (credentials.name == "" && credentials.password == "") {
                     UserIdPrincipal(credentials.name)
                 } else {
                     null
