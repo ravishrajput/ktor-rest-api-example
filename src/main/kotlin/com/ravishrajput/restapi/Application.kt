@@ -1,5 +1,6 @@
 package com.ravishrajput.restapi
 
+import com.ravishrajput.restapi.data.FlightsRepository
 import com.ravishrajput.restapi.database.DaoRepository
 import com.ravishrajput.restapi.database.DatabaseFactory
 import com.ravishrajput.restapi.routing.configureRouting
@@ -45,9 +46,10 @@ fun Application.module() {
     }
 
     val dao = DaoRepository.create()
+    val flightsRepo = FlightsRepository.create()
 
     install(Routing) {
-        configureRouting(dao)
+        configureRouting(dao, flightsRepo)
     }
 
     install(FreeMarker) {

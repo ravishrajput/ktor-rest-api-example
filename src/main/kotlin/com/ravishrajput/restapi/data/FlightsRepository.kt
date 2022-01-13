@@ -8,4 +8,8 @@ interface FlightsRepository {
     suspend fun getFlights(): List<Flight>
     suspend fun getFareDetails(id: String): FareDetails
     suspend fun getAirlineDetails(id: String): AirlinesDetails
+
+    companion object Factory {
+        fun create(): FlightsRepository = FlightsRepositoryImpl(DummyDataFactory())
+    }
 }

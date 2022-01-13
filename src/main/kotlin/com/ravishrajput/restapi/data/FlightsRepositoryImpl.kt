@@ -1,13 +1,14 @@
 package com.ravishrajput.restapi.data
 
+import com.ravishrajput.restapi.model.Airline
 import com.ravishrajput.restapi.model.AirlinesDetails
 import com.ravishrajput.restapi.model.FareDetails
 import com.ravishrajput.restapi.model.Flight
 
-class FlightsRepositoryImpl(factory: DummyDataFactory) : FlightsRepository {
+class FlightsRepositoryImpl(private val dummyData: DummyDataFactory) : FlightsRepository {
 
     override suspend fun getFlights(): List<Flight> {
-        return emptyList()
+        return dummyData.getAllFlights()
     }
 
     override suspend fun getFareDetails(id: String): FareDetails {
@@ -15,6 +16,6 @@ class FlightsRepositoryImpl(factory: DummyDataFactory) : FlightsRepository {
     }
 
     override suspend fun getAirlineDetails(id: String): AirlinesDetails {
-        return AirlinesDetails("", "", emptyList(), 0, null)
+        return AirlinesDetails("", Airline("", ""), emptyList(), 0, null)
     }
 }
