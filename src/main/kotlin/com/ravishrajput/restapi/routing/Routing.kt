@@ -17,10 +17,8 @@ fun Application.configureRouting(dao: DaoRepository, flightsRepo: FlightsReposit
         authenticate(BASIC_AUTH) {
             route(API_VERSION) {
                 routeUser(dao)
+                routeFlights(flightsRepo)
             }
-        }
-        route(API_VERSION) {
-            routeFlights(flightsRepo)
         }
         routeWeb()
     }

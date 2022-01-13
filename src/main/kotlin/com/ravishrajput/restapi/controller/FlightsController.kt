@@ -34,4 +34,20 @@ fun Route.routeFlights(repo: FlightsRepository) {
             call.respond(fareDetails ?: Response(404, "Record not found!"))
         } ?: call.respond(Response(400, "Invalid id!"))
     }
+
+    get("/flight/airlines/{id}") {
+        val id = call.parameters["id"]
+        id?.let {
+            val fareDetails = repo.getAirlineDetails(it)
+            call.respond(fareDetails ?: Response(404, "Record not found!"))
+        } ?: call.respond(Response(400, "Invalid id!"))
+    }
+
+    get("/flight/airlines") {
+        call.respond(repo.getAllAirlines())
+    }
+
+    get("/flight/cities") {
+        call.respond(repo.getAllCities())
+    }
 }

@@ -17,6 +17,41 @@ class DummyDataFactory {
 
     private val dfDateTime = SimpleDateFormat("yyyy-MM-dd hh:mm", Locale.getDefault())
     private val flights: MutableList<Flight> = mutableListOf()
+    val airlinesDetailsList = mutableListOf<AirlinesDetails>()
+    val fareDetailsList = listOf(
+        FareDetails(randomId(), 1340, 300, 1194),
+        FareDetails(randomId(), 940, 120, 1304),
+        FareDetails(randomId(), 1140, 1300, 904),
+        FareDetails(randomId(), 5340, 1400, 400),
+        FareDetails(randomId(), 3840, 1110, 450),
+        FareDetails(randomId(), 4940, 1100, 564),
+        FareDetails(randomId(), 2440, 1600, 394),
+        FareDetails(randomId(), 4340, 1203, 344),
+        FareDetails(randomId(), 2240, 1390, 154),
+        FareDetails(randomId(), 3380, 1459, 1784),
+        FareDetails(randomId(), 5900, 1294, 1090)
+    )
+    val getCities = listOf(
+        City("del", "Delhi"),
+        City("bom", "Mumbai"),
+        City("blr", "Bangalore"),
+        City("cal", "Kolkata"),
+        City("maa", "Chennai"),
+        City("pun", "Pune"),
+        City("noi", "Noida"),
+        City("jai", "Jaipur"),
+        City("hyd", "Hyderabad"),
+        City("goi", "Goa")
+    )
+
+    val getAirlines = listOf(
+        Airline("ABA", "AB Airlines"),
+        Airline("HEF", "Hello Fly"),
+        Airline("MEE", "Meego"),
+        Airline("LEG", "Let's Go"),
+        Airline("HIS", "High Sky"),
+        Airline("FLH", "Fly High")
+    )
 
     init {
         createDummyData()
@@ -32,13 +67,13 @@ class DummyDataFactory {
     fun getAllFlights(): List<Flight> = flights
 
     private fun generateFlightData(i: Int): Flight {
-        val from = getRandomCity().id
-        var to = getRandomCity().id
+        val from = getCities.random().id
+        var to = getCities.random().id
         while (from == to) {
-            to = getRandomCity().id
+            to = getCities.random().id
         }
         val airlines = getRandomAirlines(to, from)
-        val fareDetails = getFareDetails()
+        val fareDetails = fareDetailsList.random()
         val totalFare = fareDetails.airlinesCharges + fareDetails.fuelCharges + fareDetails.airlinesCharges
         val gc = getRandomDateAndTime()
         val departure = dfDateTime.format(gc.time)
@@ -62,33 +97,10 @@ class DummyDataFactory {
         return "FLY$a"
     }
 
-    private fun getRandomCity() = listOf(
-        City("del", "Delhi"),
-        City("bom", "Mumbai"),
-        City("blr", "Bangalore"),
-        City("cal", "Kolkata"),
-        City("maa", "Chennai"),
-        City("pun", "Pune"),
-        City("noi", "Noida"),
-        City("jai", "Jaipur"),
-        City("hyd", "Hyderabad"),
-        City("goi", "Goa")
-    ).random()
-
-    private fun getRandomAirline() = listOf(
-        Airline("ABA", "AB Airlines"),
-        Airline("HEF", "Hello Fly"),
-        Airline("MEE", "Meego"),
-        Airline("LEG", "Let's Go"),
-        Airline("HIS", "High Sky"),
-        Airline("FLH", "Fly High")
-    ).random()
-
     private fun getRandomAirlines(to: String, from: String): AirlinesDetails {
-        val list = mutableListOf<AirlinesDetails>()
-        val airline = getRandomAirline()
+        val airline = getAirlines.random()
         val id = "${airline.id}$to$from"
-        list.add(
+        airlinesDetailsList.add(
             AirlinesDetails(
                 id,
                 airline,
@@ -97,14 +109,14 @@ class DummyDataFactory {
                 getBaggageDetailsRandom()
             )
         )
-        return list.random()
+        return airlinesDetailsList.random()
     }
 
     private fun getRandomStopDetails(to: String, from: String): List<StopsDetails> {
         val list = mutableListOf<StopsDetails>()
-        var stop = getRandomCity()
+        var stop = getCities.random()
         while (stop.id == to && stop.id == from) {
-            stop = getRandomCity()
+            stop = getCities.random()
         }
         list.add(StopsDetails(stop, "11:20 21/01/2022", "13:10 21/01/2022"))
         return list
@@ -153,20 +165,6 @@ class DummyDataFactory {
         250,
         230,
         190
-    ).random()
-
-    private fun getFareDetails() = listOf(
-        FareDetails(randomId(), 1340, 300, 1194),
-        FareDetails(randomId(), 940, 120, 1304),
-        FareDetails(randomId(), 1140, 1300, 904),
-        FareDetails(randomId(), 5340, 1400, 400),
-        FareDetails(randomId(), 3840, 1110, 450),
-        FareDetails(randomId(), 4940, 1100, 564),
-        FareDetails(randomId(), 2440, 1600, 394),
-        FareDetails(randomId(), 4340, 1203, 344),
-        FareDetails(randomId(), 2240, 1390, 154),
-        FareDetails(randomId(), 3380, 1459, 1784),
-        FareDetails(randomId(), 5900, 1294, 1090)
     ).random()
 
     private fun randomId(): String {
