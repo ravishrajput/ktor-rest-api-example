@@ -5,12 +5,26 @@ import com.ravishrajput.restapi.model.Response
 import io.ktor.application.*
 import io.ktor.response.*
 import io.ktor.routing.*
+import java.util.*
 
 fun Route.routeFlights(repo: FlightsRepository) {
 
     get("/flight/getAllFlights") {
-        //val userList = mapOf("users" to dao.getAllUsers())
-        call.respond(repo.getFlights())
+        val from = call.request.queryParameters["from"]
+        val to = call.request.queryParameters["to"]
+        val month = call.request.queryParameters["month"]
+        val date = call.request.queryParameters["date"]
+        val year = Calendar.getInstance().get(Calendar.YEAR)
+        val departDate = "$year-$month-$date"
+
+        if (!from.isNullOrEmpty() && !to.isNullOrEmpty()) {
+            val response = repo.getFlights().filter {
+                it.from == from && it.to == to && it.departure.startsWith(departDate)
+            }
+            call.respond(response)
+        } else {
+            call.respond(repo.getFlights())
+        }
     }
 
     get("/flight/fareDetails/{id}") {
